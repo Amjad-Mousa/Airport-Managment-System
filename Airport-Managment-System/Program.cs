@@ -1,6 +1,6 @@
-﻿using System;
+﻿namespace Airport_Management_System;
 
-public class Airport_Managment_System
+class Program
 {
     public static void Main(string[] args)
     {
