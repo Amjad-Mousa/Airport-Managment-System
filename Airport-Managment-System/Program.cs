@@ -11,7 +11,6 @@ namespace Airport_Management_System
 
             while (!exit)
             {
-                Console.Clear();
                 Console.WriteLine("Flight Management System");
                 Console.WriteLine("1. Create Flight");
                 Console.WriteLine("2. Update Flight");
@@ -132,9 +131,16 @@ namespace Airport_Management_System
 
         static string GetInput(string prompt)
         {
-            Console.Write(prompt);
-            return Console.ReadLine();
+            string? input;
+            do
+            {
+                Console.Write(prompt);
+                input = Console.ReadLine()?.Trim();
+            } while (string.IsNullOrWhiteSpace(input));
+
+            return input;
         }
+
 
         static DateTime GetDateInput(string prompt)
         {

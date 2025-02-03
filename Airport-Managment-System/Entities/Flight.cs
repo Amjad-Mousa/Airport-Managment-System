@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using CsvHelper.Configuration;
+using CsvHelper.Configuration.Attributes;
 using Airport_Management_System.DTOs;
 using Airport_Management_System.Helper;
 
@@ -9,21 +9,52 @@ namespace Airport_Management_System.Entities
 {
     public class Flight
     {
-        [Required] public required string Id { get; set; }
+        [Index(0)]
+        [Name("Flight ID")]
+        [Required]
+        public required string Id { get; set; }
 
+        [Index(1)]
+        [Name("Departure Country")]
         public string? DepartureCountry { get; set; }
+
+        [Index(2)]
+        [Name("Destination Country")]
         public string? DestinationCountry { get; set; }
+
+        [Index(3)]
+        [Name("Departure Date")]
         public DateTime DepartureDate { get; set; }
+
+        [Index(4)]
+        [Name("Arrival Date")]
         public DateTime ArrivalDate { get; set; }
+
+        [Index(5)]
+        [Name("Departure Airport")]
         public string? DepartureAirport { get; set; }
+
+        [Index(6)]
+        [Name("Destination Airport")]
         public string? DestinationAirport { get; set; }
 
-        [Range(0, double.MaxValue)] public decimal EconomyPrice { get; set; } = 50;
+        [Index(7)]
+        [Name("Economy Price")]
+        [Range(0, double.MaxValue)]
+        public decimal EconomyPrice { get; set; } = 50;
 
-        [Range(0, double.MaxValue)] public decimal BusinessPrice { get; set; } = 70;
+        [Index(8)]
+        [Name("Business Price")]
+        [Range(0, double.MaxValue)]
+        public decimal BusinessPrice { get; set; } = 70;
 
-        [Range(0, double.MaxValue)] public decimal FirstClassPrice { get; set; } = 90;
+        [Index(9)]
+        [Name("First Class Price")]
+        [Range(0, double.MaxValue)]
+        public decimal FirstClassPrice { get; set; } = 90;
 
+        [Index(10)]
+        [Name("Max Seat Size")]
         public int MaxSeatSize { get; set; }
 
         public List<Seat> AvailableSeats { get; set; } = new();
@@ -31,9 +62,8 @@ namespace Airport_Management_System.Entities
         private List<Passenger> Passengers { get; set; } = new();
 
         public Flight(string id, string? departureCountry, string? destinationCountry, DateTime departureDate,
-            DateTime arrivalDate,
-            string? departureAirport, string? destinationAirport, decimal economyPrice, decimal businessPrice,
-            decimal firstClassPrice, int maxSeatSize)
+            DateTime arrivalDate, string? departureAirport, string? destinationAirport, decimal economyPrice, 
+            decimal businessPrice, decimal firstClassPrice, int maxSeatSize)
         {
             Id = id ?? throw new ArgumentNullException(nameof(id));
             DepartureCountry = departureCountry;
@@ -59,9 +89,7 @@ namespace Airport_Management_System.Entities
             }
         }
 
-        public Flight()
-        {
-        }
+        public Flight() { }
 
         public static Flight FromDto(FlightDTO flightDto)
         {
@@ -80,7 +108,6 @@ namespace Airport_Management_System.Entities
         {
             return AvailableSeats;
         }
-
 
         public override string ToString()
         {
