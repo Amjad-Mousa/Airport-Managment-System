@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Airport_Management_System.Entities;
 
 namespace Airport_Management_System.DTOs
 {
@@ -37,5 +38,6 @@ namespace Airport_Management_System.DTOs
 
         [Range(0, double.MaxValue, ErrorMessage = "First class price must be a positive value.")]
         public decimal FirstClassPrice { get; set; }
+        public List<Passenger> Passengers { get; set; }
     }
 }
