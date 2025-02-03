@@ -8,7 +8,7 @@
       "version": "1.0.0",
       "restore": {
         "projectUniqueName": "/home/amjad/RiderProjects/Airport-Managment-System/Airport-Managment-System/Airport-Managment-System.csproj",
-        "projectName": "Airport-Managment-System",
+        "projectName": "Airport-Management-System",
         "projectPath": "/home/amjad/RiderProjects/Airport-Managment-System/Airport-Managment-System/Airport-Managment-System.csproj",
         "packagesPath": "/home/amjad/.nuget/packages/",
         "outputPath": "/home/amjad/RiderProjects/Airport-Managment-System/Airport-Managment-System/obj/",
@@ -43,6 +43,12 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
+          "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[33.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
