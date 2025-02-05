@@ -1,13 +1,70 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-# Rider ignored files
-/modules.xml
-/projectSettingsUpdater.xml
-/.idea.Airport-Managment-System.iml
-/contentModel.xml
-# Editor-based HTTP Client requests
-/httpRequests/
-# Datasource local storage ignored files
-/dataSources/
-/dataSources.local.xml
+# ملفات Visual Studio المؤقتة، ومخرجات البناء، وغيرها من الملفات غير الضرورية
+
+# ملفات Visual Studio
+.vs/                # مجلد يحتوي على بيانات خاصة بـ Visual Studio، لا ينبغي مشاركتها
+*.suo               # ملف خيارات المستخدم في Visual Studio
+*.user              # ملف إعدادات المستخدم في Visual Studio
+*.user.*            # ملفات إعدادات المستخدم الإضافية
+*.sln.docstates     # ملفات حالة المستندات في Visual Studio
+*.vssscc            # ملفات التحكم بالمصادر في Visual Studio
+
+# مخرجات البناء
+bin/                # مجلد يحتوي على الملفات التنفيذية (exe, dll)
+obj/                # مجلد يحتوي على ملفات وسيطة أثناء البناء
+*.exe               # ملفات تنفيذية
+*.dll               # مكتبات
+*.pdb               # ملفات معلومات التصحيح
+*.cache             # ملفات التخزين المؤقت
+*.ilk               # ملفات الارتباط الإضافي
+*.exp               # ملفات التصدير
+
+# ملفات وسيطة
+*.tmp               # ملفات مؤقتة
+*.tmp*              # ملفات مؤقتة إضافية
+*.log               # ملفات تسجيل الأحداث
+*.cache             # ملفات التخزين المؤقت
+*.VC.db             # قاعدة بيانات Visual C++
+*.VC.opendb         # قاعدة بيانات Visual C++ المفتوحة
+*.sdf               # قاعدة بيانات SQL Server Compact
+*.suo               # ملف خيارات المستخدم (مكرر، يمكن إزالته)
+*.idb               # ملف قاعدة بيانات IntelliSense
+*.sbr               # ملف معلومات الاستعراض
+
+# حزم NuGet
+packages/           # مجلد يحتوي على حزم NuGet
+
+# نتائج الاختبار
+TestResults/        # مجلد يحتوي على نتائج الاختبار
+*.trx               # ملفات نتائج الاختبار
+
+# ملفات ReSharper (إذا كنت تستخدم ReSharper)
+.ReSharper*          # مجلد يحتوي على إعدادات ReSharper
+
+# ملفات Rider (إذا كنت تستخدم Rider)
+.idea/               # مجلد يحتوي على إعدادات Rider
+
+# ملفات IDE أخرى (إذا كانت موجودة)
+.DS_Store          # ملفات تخزين Finder على نظام macOS
+Thumbs.db           # ملفات تخزين الصور المصغرة على نظام Windows
+
+# ملفات النسخ الاحتياطي
+*.bak               # ملفات نسخ احتياطية
+*.backup            # ملفات نسخ احتياطية
+
+# ملفات مؤقتة
+*.tmp               # ملفات مؤقتة
+*.temp              # ملفات مؤقتة
+
+# ملفات Git
+.gitattributes       # ملف إعدادات Git
+.gitignore          # ملف التجاهل (هذا الملف نفسه)
+
+# ملفات النشر (إذا كانت موجودة)
+*.zip               # ملفات مضغوطة
+*.rar               # ملفات مضغوطة
+*.7z                # ملفات مضغوطة
+
+# تجاهل ملفات خاصة بالمشروع (أضف هنا ما يناسب مشروعك)
+# مثال:
+# Data/SensitiveData.csv  # تجاهل ملفات البيانات الحساسة
+# MyCustomLogFiles/       # تجاهل مجلد يحتوي على ملفات تسجيل الأحداث
