@@ -32,6 +32,7 @@ namespace Airport_Management_System.Entities
         public string? Email { get; set; }
 
         public List<Booking?>? Bookings { get; set; } = new List<Booking?>();
+        public Passenger() { }  
 
         public Passenger(int id, string? firstName, string? lastName, string? phoneNumber, string? email, List<Booking?>? bookings)
         {
@@ -40,7 +41,7 @@ namespace Airport_Management_System.Entities
             LastName = lastName;
             PhoneNumber = phoneNumber;
             Email = email;
-            Bookings = bookings;
+            Bookings = new List<Booking?>();
         }
     
         public override string ToString()
