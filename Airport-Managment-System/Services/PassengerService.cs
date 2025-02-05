@@ -6,7 +6,7 @@ namespace Airport_Management_System.Services
     public class PassengerService
     {
         private readonly List<Passenger?> passengers;
-        private string csvFilePath = @"../../../Data/Passengers.csv";
+        private string csvFilePath = @"../../../Data/Passenger.csv";
         public PassengerService()
         {
             this.passengers = CsvHelperService
@@ -16,7 +16,7 @@ namespace Airport_Management_System.Services
         public static bool IsPassengerExists(int passengerId)
         {
             return CsvHelperService
-                .ReadFromCsv<Passenger>("Passengers.csv")
+                .ReadFromCsv<Passenger>(@"../../../Data/Passenger.csv")
                 .Any(passenger => passenger.Id == passengerId);     
         }
 
@@ -26,7 +26,6 @@ namespace Airport_Management_System.Services
             return passenger != null ? passenger
                 .ToString() : "Passenger not found.";
         }
-
 
 
         private Passenger? GetPassengerById(int passengerId)
