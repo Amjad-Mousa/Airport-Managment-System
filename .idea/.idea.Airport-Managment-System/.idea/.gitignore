@@ -1,6 +1,8 @@
 # ملفات Visual Studio المؤقتة، ومخرجات البناء، وغيرها من الملفات غير الضرورية
 
 # ملفات Visual Studio
+
+.idea/
 .vs/                # مجلد يحتوي على بيانات خاصة بـ Visual Studio، لا ينبغي مشاركتها
 *.suo               # ملف خيارات المستخدم في Visual Studio
 *.user              # ملف إعدادات المستخدم في Visual Studio

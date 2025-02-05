@@ -8,23 +8,23 @@ namespace Airport_Management_System.DTOs
     {
         [Required(ErrorMessage = "Flight ID is required.")]
         [Display(Name = "Flight ID")]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [Required(ErrorMessage = "Departure country is required.")]
         [Display(Name = "Departure Country")]
-        public string DepartureCountry { get; set; }
+        public string? DepartureCountry { get; set; }
 
         [Required(ErrorMessage = "Destination country is required.")]
         [Display(Name = "Destination Country")]
-        public string DestinationCountry { get; set; }
+        public string? DestinationCountry { get; set; }
 
         [Required(ErrorMessage = "Departure airport is required.")]
         [Display(Name = "Departure Airport")]
-        public string DepartureAirport { get; set; }
+        public string? DepartureAirport { get; set; }
 
         [Required(ErrorMessage = "Destination airport is required.")]
         [Display(Name = "Destination Airport")]
-        public string DestinationAirport { get; set; }
+        public string? DestinationAirport { get; set; }
 
         [Required(ErrorMessage = "Departure date is required.")]
         [Display(Name = "Departure Date")]
@@ -51,7 +51,8 @@ namespace Airport_Management_System.DTOs
         public decimal FirstClassPrice { get; set; }
 
         [Display(Name = "Passengers")]
-        public List<Passenger> Passengers { get; set; }
+        public List<Passenger?> Passengers { get; set; }
     }
+
 
 }

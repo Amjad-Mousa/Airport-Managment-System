@@ -9,7 +9,7 @@ namespace Airport_Management_System.Services
 
         public FlightService()
         {
-            this.flights = CsvHelperService.ReadFromCsv<Flight>(csvFilePath) ?? new List<Flight>();
+            this.flights = CsvHelperService.ReadFromCsv<Flight?>(csvFilePath) ?? new List<Flight?>();
         }
 
         private Flight? GetFlightById(string flightId)
@@ -103,11 +103,11 @@ namespace Airport_Management_System.Services
             if (flight == null) return "Flight not found.";
 
             flights.Remove(flight);
-            CsvHelperService.WriteToCsv(csvFilePath, flights); // Save changes to CSV
+            CsvHelperService.WriteToCsv(csvFilePath, flights);
             return "Flight deleted successfully!";
         }
 
-        public List<Flight> GetFlights()
+        public List<Flight?> GetFlights()
         {
             return flights;
         }

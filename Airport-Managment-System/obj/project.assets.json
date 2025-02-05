@@ -53,24 +53,31 @@
     ]
   },
   "packageFolders": {
-    "/home/amjad/.nuget/packages/": {}
+    "C:\\Users\\AmjadPc\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/amjad/RiderProjects/Airport-Managment-System/Airport-Managment-System/Airport-Managment-System.csproj",
+      "projectUniqueName": "C:\\Users\\AmjadPc\\source\\repos\\Airport-Managment-System\\Airport-Managment-System\\Airport-Managment-System.csproj",
       "projectName": "Airport-Management-System",
-      "projectPath": "/home/amjad/RiderProjects/Airport-Managment-System/Airport-Managment-System/Airport-Managment-System.csproj",
-      "packagesPath": "/home/amjad/.nuget/packages/",
-      "outputPath": "/home/amjad/RiderProjects/Airport-Managment-System/Airport-Managment-System/obj/",
+      "projectPath": "C:\\Users\\AmjadPc\\source\\repos\\Airport-Managment-System\\Airport-Managment-System\\Airport-Managment-System.csproj",
+      "packagesPath": "C:\\Users\\AmjadPc\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\AmjadPc\\source\\repos\\Airport-Managment-System\\Airport-Managment-System\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/home/amjad/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\AmjadPc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -87,7 +94,7 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "all"
+        "auditMode": "direct"
       },
       "SdkAnalysisLevel": "9.0.100"
     },
@@ -116,7 +123,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/home/amjad/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
