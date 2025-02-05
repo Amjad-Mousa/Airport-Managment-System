@@ -1,11 +1,16 @@
-Id,DepartureCountry,DestinationCountry,DepartureDate,ArrivalDate,DepartureAirport,DestinationAirport,EconomyPrice,BusinessPrice,FirstClassPrice,MaxSeatSize
-FL001,USA,Canada,2025-02-10,2025-02-10,John F. Kennedy International Airport,Toronto Pearson International Airport,200,500,1000,100
-FL002,UK,Germany,2025-02-12,2025-02-12,Heathrow Airport,Frankfurt Airport,180,450,950,150
-FL003,Australia,Japan,2025-02-14,2025-02-14,Sydney Airport,Tokyo Narita International Airport,220,550,1100,120
-FL004,France,Spain,2025-02-16,2025-02-16,Charles de Gaulle Airport,Barcelona El Prat Airport,150,400,900,80
-FL005,Germany,Italy,2025-02-18,2025-02-18,Frankfurt Airport,Rome Fiumicino Airport,170,420,950,100
-FL006,Canada,Mexico,2025-02-20,2025-02-20,Toronto Pearson International Airport,Mexico City International Airport,190,480,990,130
-FL007,USA,Brazil,2025-02-22,2025-02-22,Miami International Airport,Rio de Janeiro Galeão International Airport,210,520,1050,110
-FL008,Japan,South Korea,2025-02-24,2025-02-24,Tokyo Narita International Airport,Incheon International Airport,200,500,1000,90
-FL009,UK,Italy,2025-02-26,2025-02-26,Heathrow Airport,Venice Marco Polo Airport,180,450,950,100
-FL010,Australia,New Zealand,2025-02-28,2025-02-28,Sydney Airport,Auckland Airport,250,600,1200,140
+Flight ID,Departure Country,Destination Country,Departure Date,Arrival Date,Departure Airport,Destination Airport,Economy Price,Business Price,First Class Price,Max Seat Size
+FL001,USA,Canada,02/10/2025 00:00:00,02/10/2025 00:00:00,John F. Kennedy International Airport,Toronto Pearson International Airport,200,500,1000,100
+FL002,UK,Germany,02/12/2025 00:00:00,02/12/2025 00:00:00,Heathrow Airport,Frankfurt Airport,180,450,950,150
+FL003,Australia,Japan,02/14/2025 00:00:00,02/14/2025 00:00:00,Sydney Airport,Tokyo Narita International Airport,220,550,1100,120
+FL004,France,Spain,02/16/2025 00:00:00,02/16/2025 00:00:00,Charles de Gaulle Airport,Barcelona El Prat Airport,150,400,900,80
+FL005,Germany,Italy,02/18/2025 00:00:00,02/18/2025 00:00:00,Frankfurt Airport,Rome Fiumicino Airport,170,420,950,100
+FL006,Canada,Mexico,02/20/2025 00:00:00,02/20/2025 00:00:00,Toronto Pearson International Airport,Mexico City International Airport,190,480,990,130
+FL007,USA,Brazil,02/22/2025 00:00:00,02/22/2025 00:00:00,Miami International Airport,Rio de Janeiro Galeão International Airport,210,520,1050,110
+FL008,Japan,South Korea,02/24/2025 00:00:00,02/24/2025 00:00:00,Tokyo Narita International Airport,Incheon International Airport,200,500,1000,90
+FL009,UK,Italy,02/26/2025 00:00:00,02/26/2025 00:00:00,Heathrow Airport,Venice Marco Polo Airport,180,450,950,100
+FL010,Australia,New Zealand,02/28/2025 00:00:00,02/28/2025 00:00:00,Sydney Airport,Auckland Airport,250,600,1200,140
+FL555,Palestine,London,05/02/2025 00:00:00,06/02/2025 00:00:00,Jerusalem,London,200,250,400,60
+fl520,pal,uk,01/01/2026 00:00:00,02/01/2026 00:00:00,n,l,200,250,400,30
+fl111,p,p,01/01/2025 00:00:00,02/01/2025 00:00:00,p,p,255,256,268,60
+fl152,p,p,01/01/2025 00:00:00,02/01/2025 00:00:00,f,f,25,520,562,60
+fl852,f,f,01/01/2025 00:00:00,01/01/2025 00:00:00,f,f,30,60,85,90

@@ -5,203 +5,136 @@ namespace Airport_Management_System.Services
     public class FlightService
     {
         private readonly List<Flight?> flights;
-        private  string csvFilePath = @"../../../Data/Flight.csv";
+        private string csvFilePath = @"../../../Data/Flight.csv";
 
         public FlightService()
         {
-            try
-            {
-                this.flights = CsvHelperService.ReadFromCsv<Flight>(csvFilePath) ?? new List<Flight>();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error reading CSV file: {ex.Message}");
-                this.flights = new List<Flight>(); 
-            }
+            this.flights = CsvHelperService.ReadFromCsv<Flight>(csvFilePath) ?? new List<Flight>();
         }
 
         private Flight? GetFlightById(string flightId)
         {
-            try
+            if (string.IsNullOrWhiteSpace(flightId))
             {
-                if (string.IsNullOrWhiteSpace(flightId))
-                {
-                    Console.WriteLine("Invalid flight ID.");
-                    return null;
-                }
-
-                return flights.FirstOrDefault(f => f?.Id == flightId);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error getting flight by ID: {ex.Message}");
+                Console.WriteLine("Invalid flight ID.");
                 return null;
             }
+
+            return flights.FirstOrDefault(f => f?.Id == flightId);
         }
 
         public string GetFlightDetails(string id)
         {
-            try
-            {
-                var flight = GetFlightById(id);
-                return flight != null ? flight.ToString() : "Flight not found.";
-            }
-            catch (Exception ex)
-            {
-                return $"Error retrieving flight details: {ex.Message}";
-            }
+            var flight = GetFlightById(id);
+            return flight != null ? flight.ToString() : "Flight not found.";
         }
 
         public string UpdateFlight(Flight updatedFlight)
         {
-            try
+            if (updatedFlight == null || string.IsNullOrWhiteSpace(updatedFlight.Id))
             {
-                if (updatedFlight == null || string.IsNullOrWhiteSpace(updatedFlight.Id))
-                {
-                    return "Invalid flight data.";
-                }
-
-                var flight = GetFlightById(updatedFlight.Id);
-                if (flight == null) return "Flight not found.";
-
-                if (!string.IsNullOrWhiteSpace(updatedFlight.DepartureCountry))
-                    flight.DepartureCountry = updatedFlight.DepartureCountry;
-
-                if (!string.IsNullOrWhiteSpace(updatedFlight.DestinationCountry))
-                    flight.DestinationCountry = updatedFlight.DestinationCountry;
-
-                if (updatedFlight.DepartureDate != default)
-                    flight.DepartureDate = updatedFlight.DepartureDate;
-
-                if (updatedFlight.ArrivalDate != default)
-                    flight.ArrivalDate = updatedFlight.ArrivalDate;
-
-                if (!string.IsNullOrWhiteSpace(updatedFlight.DepartureAirport))
-                    flight.DepartureAirport = updatedFlight.DepartureAirport;
-
-                if (!string.IsNullOrWhiteSpace(updatedFlight.DestinationAirport))
-                    flight.DestinationAirport = updatedFlight.DestinationAirport;
-
-                if (updatedFlight.EconomyPrice > 0)
-                    flight.EconomyPrice = updatedFlight.EconomyPrice;
-
-                if (updatedFlight.BusinessPrice > 0)
-                    flight.BusinessPrice = updatedFlight.BusinessPrice;
-
-                if (updatedFlight.FirstClassPrice > 0)
-                    flight.FirstClassPrice = updatedFlight.FirstClassPrice;
-
-                if (updatedFlight.MaxSeatSize > 0)
-                {
-                    flight.MaxSeatSize = updatedFlight.MaxSeatSize;
-                    flight.AvailableSeats.Clear();
-                    for (int i = 1; i <= flight.MaxSeatSize; i++)
-                    {
-                        flight.AvailableSeats.Add(new Seat { SeatNumber = i, Status = "Available" });
-                    }
-                }
-
-                CsvHelperService.WriteToCsv(csvFilePath, flights);
-                return "Flight updated successfully.";
+                return "Invalid flight data.";
             }
-            catch (Exception ex)
+
+            var flight = GetFlightById(updatedFlight.Id);
+            if (flight == null) return "Flight not found.";
+
+            if (!string.IsNullOrWhiteSpace(updatedFlight.DepartureCountry))
+                flight.DepartureCountry = updatedFlight.DepartureCountry;
+
+            if (!string.IsNullOrWhiteSpace(updatedFlight.DestinationCountry))
+                flight.DestinationCountry = updatedFlight.DestinationCountry;
+
+            if (updatedFlight.DepartureDate != default)
+                flight.DepartureDate = updatedFlight.DepartureDate;
+
+            if (updatedFlight.ArrivalDate != default)
+                flight.ArrivalDate = updatedFlight.ArrivalDate;
+
+            if (!string.IsNullOrWhiteSpace(updatedFlight.DepartureAirport))
+                flight.DepartureAirport = updatedFlight.DepartureAirport;
+
+            if (!string.IsNullOrWhiteSpace(updatedFlight.DestinationAirport))
+                flight.DestinationAirport = updatedFlight.DestinationAirport;
+
+            if (updatedFlight.EconomyPrice > 0)
+                flight.EconomyPrice = updatedFlight.EconomyPrice;
+
+            if (updatedFlight.BusinessPrice > 0)
+                flight.BusinessPrice = updatedFlight.BusinessPrice;
+
+            if (updatedFlight.FirstClassPrice > 0)
+                flight.FirstClassPrice = updatedFlight.FirstClassPrice;
+
+            if (updatedFlight.MaxSeatSize > 0)
             {
-                return $"Error updating flight: {ex.Message}";
+                flight.MaxSeatSize = updatedFlight.MaxSeatSize;
+                flight.AvailableSeats.Clear();
+                for (int i = 1; i <= flight.MaxSeatSize; i++)
+                {
+                    flight.AvailableSeats.Add(new Seat { SeatNumber = i, Status = "Available" });
+                }
             }
+
+            CsvHelperService.WriteToCsv(csvFilePath, flights);
+            return "Flight updated successfully.";
         }
 
         public string CreateFlight(Flight flight)
         {
-            try
+            if (flight == null)
             {
-                if (flight == null)
-                {
-                    return "Invalid flight data.";
-                }
-
-                if (flights.Any(f => f?.Id == flight.Id))
-                {
-                    return "Flight with the given ID already exists.";
-                }
-
-                flights.Add(flight);
-                CsvHelperService.AddToCsv(csvFilePath, flight);
-                return "Flight created successfully!";
+                return "Invalid flight data.";
             }
-            catch (Exception ex)
+
+            if (flights.Any(f => f?.Id == flight.Id))
             {
-                return $"Error creating flight: {ex.Message}";
+                return "Flight with the given ID already exists.";
             }
+
+            flights.Add(flight);
+            CsvHelperService.AddToCsv(csvFilePath, flight);
+            return "Flight created successfully!";
         }
 
         public string DeleteFlight(string flightId)
         {
-            try
-            {
-                var flight = GetFlightById(flightId);
-                if (flight == null) return "Flight not found.";
+            var flight = GetFlightById(flightId);
+            if (flight == null) return "Flight not found.";
 
-                flights.Remove(flight);
-                CsvHelperService.WriteToCsv(csvFilePath, flights); // Save changes to CSV
-                return "Flight deleted successfully!";
-            }
-            catch (Exception ex)
-            {
-                return $"Error deleting flight: {ex.Message}";
-            }
+            flights.Remove(flight);
+            CsvHelperService.WriteToCsv(csvFilePath, flights); // Save changes to CSV
+            return "Flight deleted successfully!";
         }
 
         public List<Flight> GetFlights()
         {
-            try
-            {
-                return flights;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error retrieving flights: {ex.Message}");
-                return new List<Flight>();
-            }
+            return flights;
         }
 
         public string ReserveSeat(string flightId, int seatNumber)
         {
-            try
-            {
-                var flight = GetFlightById(flightId);
-                if (flight == null) return "Flight not found.";
-                var seat = flight.GetSeats().FirstOrDefault(s => s.SeatNumber == seatNumber);
-                if (seat == null) return "Seat not found.";
+            var flight = GetFlightById(flightId);
+            if (flight == null) return "Flight not found.";
+            var seat = flight.AvailableSeats.FirstOrDefault(s => s.SeatNumber == seatNumber);
+            if (seat == null) return "Seat not found.";
 
-                if (seat.Status == "Booked")
-                {
-                    return "Seat already reserved.";
-                }
-
-                seat.Status = "Booked";
-                CsvHelperService.WriteToCsv(csvFilePath, flights);
-                return "Seat reserved successfully.";
-            }
-            catch (Exception ex)
+            if (seat.Status == "Booked")
             {
-                return $"Error reserving seat: {ex.Message}";
+                return "Seat already reserved.";
             }
+
+            seat.Status = "Booked";
+            CsvHelperService.WriteToCsv(csvFilePath, flights);
+            return "Seat reserved successfully.";
         }
 
         public bool SeatExists(string flightId, int seatNumber)
         {
-            try
-            {
-                var flight = GetFlightById(flightId);
-                if (flight == null) return false;
-                var seat = flight.GetSeats().FirstOrDefault(s => s.SeatNumber == seatNumber);
-                return seat != null;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error checking seat existence: {ex.Message}");
-                return false;
-            }
+            var flight = GetFlightById(flightId);
+            if (flight == null) return false;
+            var seat = flight.AvailableSeats.FirstOrDefault(s => s.SeatNumber == seatNumber);
+            return seat != null;
         }
     }
 }

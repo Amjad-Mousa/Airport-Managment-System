@@ -9,7 +9,13 @@ namespace Airport_Management_System.Helper
         public static List<T> ReadFromCsv<T>(string filePath)
         {
             using var reader = new StreamReader(filePath);
-            using var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture));
+            using var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HeaderValidated = null,
+                MissingFieldFound = null,
+                TrimOptions = TrimOptions.Trim
+            });
+
             return csv.GetRecords<T>().ToList();
         }
 

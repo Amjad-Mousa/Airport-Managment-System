@@ -1,9 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using CsvHelper.Configuration.Attributes;
 using Airport_Management_System.DTOs;
 using Airport_Management_System.Helper;
+using System.Linq;
 
 namespace Airport_Management_System.Entities
 {
@@ -58,11 +57,10 @@ namespace Airport_Management_System.Entities
         public int MaxSeatSize { get; set; }
 
         public List<Seat> AvailableSeats { get; set; } = new();
-
-        private List<Passenger> Passengers { get; set; } = new();
+        public List<Passenger> Passengers { get; set; } = new();
 
         public Flight(string id, string? departureCountry, string? destinationCountry, DateTime departureDate,
-            DateTime arrivalDate, string? departureAirport, string? destinationAirport, decimal economyPrice, 
+            DateTime arrivalDate, string? departureAirport, string? destinationAirport, decimal economyPrice,
             decimal businessPrice, decimal firstClassPrice, int maxSeatSize)
         {
             Id = id ?? throw new ArgumentNullException(nameof(id));
@@ -85,11 +83,18 @@ namespace Airport_Management_System.Entities
 
             for (int i = 1; i <= MaxSeatSize; i++)
             {
-                AvailableSeats.Add(new Seat { SeatNumber = i, Status = "Available" });
+                Seat seat =new Seat { SeatNumber = i, Status = "Available" };
+                AvailableSeats.Add(seat);
+                CsvHelperService.AddToCsv<Seat>(@"../../../Data/Seats.csv", seat);
+
+
             }
+
         }
 
         public Flight() { }
+
+       
 
         public static Flight FromDto(FlightDTO flightDto)
         {
@@ -100,13 +105,14 @@ namespace Airport_Management_System.Entities
             {
                 Id = null
             };
+            for (int i = 1; i <= flight.MaxSeatSize; i++)
+            {
+                Seat seat = new Seat { SeatNumber = i, Status = "Available" };
+                flight.AvailableSeats.Add(seat);
+                CsvHelperService.AddToCsv(@"../../../Data/Seats.csv", seat);
+            }
             CsvHelperService.AddToCsv(@"../../../Data/Flight.csv", flight);
             return flight;
-        }
-
-        public List<Seat> GetSeats()
-        {
-            return AvailableSeats;
         }
 
         public override string ToString()
@@ -125,15 +131,7 @@ namespace Airport_Management_System.Entities
                    $"Seats: {seatsInfo}";
         }
 
-        public List<Passenger> GetPassengers()
-        {
-            return this.Passengers;
-        }
     }
 
-    public class Seat
-    {
-        public int SeatNumber { get; set; }
-        public string Status { get; set; }
-    }
+ 
 }
