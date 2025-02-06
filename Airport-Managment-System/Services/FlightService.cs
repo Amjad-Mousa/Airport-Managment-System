@@ -29,15 +29,18 @@ namespace Airport_Management_System.Services
             return flight != null ? flight.ToString() : "Flight not found.";
         }
 
-        public string UpdateFlight(Flight updatedFlight)
+        public bool UpdateFlight(Flight? updatedFlight)
         {
             if (updatedFlight == null || string.IsNullOrWhiteSpace(updatedFlight.Id))
             {
-                return "Invalid flight data.";
+                Console.WriteLine( "Invalid flight data.");
             }
 
             var flight = GetFlightById(updatedFlight.Id);
-            if (flight == null) return "Flight not found.";
+            if (flight == null) {
+                Console.WriteLine("Flight not found.");
+                return false;
+            };
 
             if (!string.IsNullOrWhiteSpace(updatedFlight.DepartureCountry))
                 flight.DepartureCountry = updatedFlight.DepartureCountry;
@@ -77,34 +80,42 @@ namespace Airport_Management_System.Services
             }
 
             CsvHelperService.WriteToCsv(csvFilePath, flights);
-            return "Flight updated successfully.";
+            Console.WriteLine("Flight updated successfully.");
+            return true;
         }
 
-        public string CreateFlight(Flight flight)
+        public bool CreateFlight(Flight flight)
         {
             if (flight == null)
             {
-                return "Invalid flight data.";
+                Console.WriteLine("Invalid flight data.");
+                return false;
             }
 
             if (flights.Any(f => f?.Id == flight.Id))
             {
-                return "Flight with the given ID already exists.";
+                Console.WriteLine("Flight already exists.");
+                return false;   
             }
 
             flights.Add(flight);
             CsvHelperService.AddToCsv(csvFilePath, flight);
-            return "Flight created successfully!";
+            Console.WriteLine("Flight created successfully.");
+            return true;
         }
 
-        public string DeleteFlight(string flightId)
+        public bool DeleteFlight(string flightId)
         {
             var flight = GetFlightById(flightId);
-            if (flight == null) return "Flight not found.";
+            if (flight == null) {
+                Console.WriteLine("Flight not found.");
+                return false;   
+            } 
 
             flights.Remove(flight);
             CsvHelperService.WriteToCsv(csvFilePath, flights);
-            return "Flight deleted successfully!";
+            Console.WriteLine("Flight deleted successfully.");
+            return true;    
         }
 
         public List<Flight?> GetFlights()
@@ -112,21 +123,28 @@ namespace Airport_Management_System.Services
             return flights;
         }
 
-        public string ReserveSeat(string flightId, int seatNumber)
+        public bool ReserveSeat(string flightId, int seatNumber)
         {
             var flight = GetFlightById(flightId);
-            if (flight == null) return "Flight not found.";
+            if (flight == null) 
+            {
+                Console.WriteLine("Flight not found.");
+                return false;   
+            }
             var seat = flight.AvailableSeats.FirstOrDefault(s => s.SeatNumber == seatNumber);
-            if (seat == null) return "Seat not found.";
+            if (seat == null) {Console.WriteLine("Seat not found."); return false; }
+        
 
             if (seat.Status == "Booked")
             {
-                return "Seat already reserved.";
+                Console.WriteLine("Seat already booked.");
+                return false;       
             }
 
             seat.Status = "Booked";
             CsvHelperService.WriteToCsv(csvFilePath, flights);
-            return "Seat reserved successfully.";
+            Console.WriteLine("Seat reserved successfully.");
+            return true;
         }
 
         public bool SeatExists(string flightId, int seatNumber)
