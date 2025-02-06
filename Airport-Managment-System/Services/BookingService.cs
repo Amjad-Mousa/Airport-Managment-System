@@ -17,17 +17,19 @@ namespace Airport_Management_System.Services
             return booking != null ? booking.ToString() : "Booking not found.";
         }
 
-        public string UpdateBooking(Booking updatedBooking)
+        public bool UpdateBooking(Booking updatedBooking)
         {
             if (updatedBooking == null || updatedBooking.BookingId == 0)
             {
-                return "Invalid booking data.";
+                Console.WriteLine( "Invalid booking data.");
+                return false;   
             }
 
             var booking = GetBookingById(updatedBooking.BookingId);
             if (booking == null)
             {
-                return "Booking not found.";
+                Console.WriteLine("Booking not found.");
+                return false;   
             }
 
             if (!string.IsNullOrWhiteSpace(updatedBooking.FlightId))
@@ -55,7 +57,8 @@ namespace Airport_Management_System.Services
                 booking.TotalPrice = updatedBooking.TotalPrice;
             }
             CsvHelperService.WriteToCsv(csvFilePath, Bookings);
-            return "Booking updated successfully.";
+            Console.WriteLine("Booking updated successfully!");
+            return true;        
 
         }
 
@@ -64,14 +67,17 @@ namespace Airport_Management_System.Services
             return Bookings;
         }
 
-        public string DeleteBooking(int BookingID)
+        public bool DeleteBooking(int BookingID)
         {
             var flight = GetBookingById(BookingID);
-            if (flight == null) return "Booking not found.";
+            if (flight == null) {
+                Console.WriteLine("Booking not found.");
+                return false; }
 
             Bookings?.Remove(flight);
             CsvHelperService.WriteToCsv(csvFilePath, Bookings);
-            return "Booking canceled successfully!";
+            Console.WriteLine( "Booking canceled successfully!");
+            return true;    
         }
 
         public List<Booking> GetAllBookings(Passenger passenger)
@@ -91,21 +97,24 @@ namespace Airport_Management_System.Services
             return new List<Booking>();
         }
 
-        public string CreateBooking(Booking booking)
+        public bool CreateBooking(Booking booking)
         {
             if (Bookings == null)
             {
-                return "Invalid Booking data.";
+                Console.WriteLine("Invalid booking data.");
+                return false;   
             }
 
             if (Bookings.Any(b => b?.BookingId == booking.BookingId))
             {
-                return "Booking with the given ID already exists.";
+                Console.WriteLine("Booking already exists.");   
+                return false;
             }
 
             Bookings.Add(booking);
             CsvHelperService.AddToCsv(csvFilePath, booking);
-            return "Booking created successfully!";
+            Console.WriteLine("Booking created successfully!");
+            return true;
         }
         private List<Booking?> FilterByBookingDate()
         {

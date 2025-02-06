@@ -1,166 +1,209 @@
-﻿using Airport_Management_System.Services;
-using Airport_Management_System.Entities;
-namespace Airport_Management_System
+﻿using Airport_Management_System.Entities;
+using Airport_Management_System.Services;
+using System;
+using System.Linq;
+
+class Program
 {
-    internal abstract class Program
+    static void Main(string[] args)
     {
-        static void Main()
+        var flightService = new FlightService();
+        var bookingService = new BookingService();
+        var passengerService = new PassengerService();
+
+        while (true)
         {
-            FlightService flightService = new FlightService();
-            bool exit = false;
+            Console.Clear();
+            Console.WriteLine("Welcome to the Airport Management System");
+            Console.WriteLine("1. Create Flight");
+            Console.WriteLine("2. View Flight Details");
+            Console.WriteLine("3. Update Flight");
+            Console.WriteLine("4. Delete Flight");
+            Console.WriteLine("5. Create Booking");
+            Console.WriteLine("6. View Booking Details");
+            Console.WriteLine("7. Cancel Booking");
+            Console.WriteLine("8. Reserve Seat");
+            Console.WriteLine("9. View Passenger Details");
+            Console.WriteLine("0. Exit");
+            Console.Write("Please select an option: ");
 
-            while (!exit)
+            var option = Console.ReadLine();
+
+            switch (option)
             {
-                Console.WriteLine("Flight Management System");
-                Console.WriteLine("1. Create Flight");
-                Console.WriteLine("2. Update Flight");
-                Console.WriteLine("3. View Flight Details");
-                Console.WriteLine("4. Delete Flight");
-                Console.WriteLine("5. Reserve Seat");
-                Console.WriteLine("6. Exit");
-                Console.Write("Choose an option: ");
-                
-                string? option = Console.ReadLine();
+                case "1":
+                    CreateFlight(flightService);
+                    break;
 
-                switch (option)
-                {
-                    case "1":
-                        CreateFlight(flightService);
-                        break;
-                    case "2":
-                        UpdateFlight(flightService);
-                        break;
-                    case "3":
-                        ViewFlightDetails(flightService);
-                        break;
-                    case "4":
-                        DeleteFlight(flightService);
-                        break;
-                    case "5":
-                        ReserveSeat(flightService);
-                        break;
-                    case "6":
-                        exit = true;
-                        break;
-                    default:
-                        Console.WriteLine("Invalid option. Please try again.");
-                        break;
-                }
+                case "2":
+                    ViewFlightDetails(flightService);
+                    break;
+
+                case "3":
+                    UpdateFlight(flightService);
+                    break;
+
+                case "4":
+                    DeleteFlight(flightService);
+                    break;
+
+                case "5":
+                    CreateBooking(bookingService);
+                    break;
+
+                case "6":
+                    ViewBookingDetails(bookingService);
+                    break;
+
+                case "7":
+                    CancelBooking(bookingService);
+                    break;
+
+                case "8":
+                    ReserveSeat(flightService);
+                    break;
+
+                case "9":
+                    ViewPassengerDetails(passengerService);
+                    break;
+
+                case "0":
+                    return;
+
+                default:
+                    Console.WriteLine("Invalid option, please try again.");
+                    break;
             }
         }
+    }
 
-        static void CreateFlight(FlightService flightService)
+    private static void CreateFlight(FlightService flightService)
+    {
+        Console.WriteLine("Enter Flight Details:");
+
+        Console.Write("Flight ID: ");
+        string id = Console.ReadLine();
+
+        Console.Write("Departure Country: ");
+        string departureCountry = Console.ReadLine();
+
+        Console.Write("Destination Country: ");
+        string destinationCountry = Console.ReadLine();
+
+        Console.Write("Departure Date (yyyy-mm-dd): ");
+        DateTime departureDate = DateTime.Parse(Console.ReadLine());
+
+        Console.Write("Arrival Date (yyyy-mm-dd): ");
+        DateTime arrivalDate = DateTime.Parse(Console.ReadLine());
+
+        Console.Write("Departure Airport: ");
+        string departureAirport = Console.ReadLine();
+
+        Console.Write("Destination Airport: ");
+        string destinationAirport = Console.ReadLine();
+
+        Console.Write("Economy Price: ");
+        decimal economyPrice = decimal.Parse(Console.ReadLine());
+
+        Console.Write("Business Price: ");
+        decimal businessPrice = decimal.Parse(Console.ReadLine());
+
+        Console.Write("First Class Price: ");
+        decimal firstClassPrice = decimal.Parse(Console.ReadLine());
+
+        Console.Write("Max Seat Size: ");
+        int maxSeatSize = int.Parse(Console.ReadLine());
+
+        Flight newFlight = new(id, departureCountry, destinationCountry, departureDate, arrivalDate, departureAirport, destinationAirport, economyPrice, businessPrice, firstClassPrice, maxSeatSize) { Id = null };
+
+        Console.WriteLine(flightService.CreateFlight(newFlight));
+    }
+
+    private static void ViewFlightDetails(FlightService flightService)
+    {
+        Console.Write("Enter Flight ID: ");
+        string flightId = Console.ReadLine();
+        Console.WriteLine(flightService.GetFlightDetails(flightId));
+    }
+
+    private static void UpdateFlight(FlightService flightService)
+    {
+        Console.Write("Enter Flight ID to update: ");
+        string flightId = Console.ReadLine();
+
+        Console.Write("New Departure Country: ");
+        string departureCountry = Console.ReadLine();
+
+        Console.Write("New Destination Country: ");
+        string destinationCountry = Console.ReadLine();
+
+        // Update other fields similarly...
+
+        Flight updatedFlight = new Flight
         {
-            Console.WriteLine("Create a new flight");
+            Id = flightId,
+            DepartureCountry = departureCountry,
+            DestinationCountry = destinationCountry,
+            // Set other properties...
+        };
 
-            Flight newFlight = new Flight
-            {
-                Id = GetInput("Flight ID: "),
-                DepartureCountry = GetInput("Departure Country: "),
-                DestinationCountry = GetInput("Destination Country: "),
-                DepartureDate = DateTime.Parse(GetInput("Departure Date (yyyy-mm-dd): ")),
-                ArrivalDate = DateTime.Parse(GetInput("Arrival Date (yyyy-mm-dd): ")),
-                DepartureAirport = GetInput("Departure Airport: "),
-                DestinationAirport = GetInput("Destination Airport: "),
-                EconomyPrice = decimal.Parse(GetInput("Economy Price: ")),
-                BusinessPrice = decimal.Parse(GetInput("Business Price: ")),
-                FirstClassPrice = decimal.Parse(GetInput("First Class Price: ")),
-                MaxSeatSize = int.Parse(GetInput("Max Seat Size: "))
-            };
+        Console.WriteLine(flightService.UpdateFlight(updatedFlight));
+    }
 
-            string result = flightService.CreateFlight(newFlight);
-            Console.WriteLine(result);
-            Console.ReadKey();
-        }
+    private static void DeleteFlight(FlightService flightService)
+    {
+        Console.Write("Enter Flight ID to delete: ");
+        string flightId = Console.ReadLine();
+        Console.WriteLine(flightService.DeleteFlight(flightId));
+    }
 
-        static void UpdateFlight(FlightService flightService)
-        {
-            Console.WriteLine("Update a flight");
+    private static void CreateBooking(BookingService bookingService)
+    {
+        Console.Write("Enter Flight ID for Booking: ");
+        string flightId = Console.ReadLine();
 
-            string flightId = GetInput("Enter flight ID to update: ");
-            Flight updatedFlight = new Flight
-            {
-                Id = flightId,
-                DepartureCountry = GetInput("New Departure Country (leave empty to skip): "),
-                DestinationCountry = GetInput("New Destination Country (leave empty to skip): "),
-                DepartureDate = GetDateInput("New Departure Date (leave empty to skip): "),
-                ArrivalDate = GetDateInput("New Arrival Date (leave empty to skip): "),
-                DepartureAirport = GetInput("New Departure Airport (leave empty to skip): "),
-                DestinationAirport = GetInput("New Destination Airport (leave empty to skip): "),
-                EconomyPrice = GetDecimalInput("New Economy Price (leave empty to skip): "),
-                BusinessPrice = GetDecimalInput("New Business Price (leave empty to skip): "),
-                FirstClassPrice = GetDecimalInput("New First Class Price (leave empty to skip): "),
-                MaxSeatSize = GetIntInput("New Max Seat Size (leave empty to skip): ")
-            };
+        Console.Write("Enter Passenger ID: ");
+        int passengerId = int.Parse(Console.ReadLine());
 
-            string result = flightService.UpdateFlight(updatedFlight);
-            Console.WriteLine(result);
-            Console.ReadKey();
-        }
+        Console.Write("Enter Booking Class (Economy/Business/FirstClass): ");
+        string bookingClass = Console.ReadLine();
 
-        static void ViewFlightDetails(FlightService flightService)
-        {
-            Console.WriteLine("View Flight Details");
+        Console.Write("Enter Total Price: ");
+        decimal totalPrice = decimal.Parse(Console.ReadLine());
 
-            string flightId = GetInput("Enter flight ID to view: ");
-            string result = flightService.GetFlightDetails(flightId);
-            Console.WriteLine(result);
-            Console.ReadKey();
-        }
+        Booking newBooking = new Booking(flightId, passengerId, bookingClass, totalPrice);
+        Console.WriteLine(bookingService.CreateBooking(newBooking));
+    }
 
-        static void DeleteFlight(FlightService flightService)
-        {
-            Console.WriteLine("Delete a flight");
+    private static void ViewBookingDetails(BookingService bookingService)
+    {
+        Console.Write("Enter Booking ID: ");
+        int bookingId = int.Parse(Console.ReadLine());
+        Console.WriteLine(bookingService.GetBookingDetails(bookingId));
+    }
 
-            string flightId = GetInput("Enter flight ID to delete: ");
-            string result = flightService.DeleteFlight(flightId);
-            Console.WriteLine(result);
-            Console.ReadKey();
-        }
+    private static void CancelBooking(BookingService bookingService)
+    {
+        Console.Write("Enter Booking ID to cancel: ");
+        int bookingId = int.Parse(Console.ReadLine());
+        Console.WriteLine(bookingService.DeleteBooking(bookingId));
+    }
 
-        static void ReserveSeat(FlightService flightService)
-        {
-            Console.WriteLine("Reserve a seat");
+    private static void ReserveSeat(FlightService flightService)
+    {
+        Console.Write("Enter Flight ID: ");
+        string flightId = Console.ReadLine();
 
-            string flightId = GetInput("Enter flight ID: ");
-            int seatNumber = int.Parse(GetInput("Enter seat number: "));
-            string result = flightService.ReserveSeat(flightId, seatNumber);
-            Console.WriteLine(result);
-            Console.ReadKey();
-        }
+        Console.Write("Enter Seat Number: ");
+        int seatNumber = int.Parse(Console.ReadLine());
 
-        static string GetInput(string prompt)
-        {
-            string? input;
-            do
-            {
-                Console.Write(prompt);
-                input = Console.ReadLine()?.Trim();
-            } while (string.IsNullOrWhiteSpace(input));
+        Console.WriteLine(flightService.ReserveSeat(flightId, seatNumber));
+    }
 
-            return input;
-        }
-
-
-        static DateTime GetDateInput(string prompt)
-        {
-            Console.Write(prompt);
-            string? input = Console.ReadLine();
-            return string.IsNullOrWhiteSpace(input) ? default : DateTime.Parse(input);
-        }
-
-        static decimal GetDecimalInput(string prompt)
-        {
-            Console.Write(prompt);
-            string? input = Console.ReadLine();
-            return string.IsNullOrWhiteSpace(input) ? 0 : decimal.Parse(input);
-        }
-
-        static int GetIntInput(string prompt)
-        {
-            Console.Write(prompt);
-            string? input = Console.ReadLine();
-            return string.IsNullOrWhiteSpace(input) ? 0 : int.Parse(input);
-        }
+    private static void ViewPassengerDetails(PassengerService passengerService)
+    {
+        Console.Write("Enter Passenger ID: ");
+        int passengerId = int.Parse(Console.ReadLine());
+        Console.WriteLine(passengerService.GetPassengerDetails(passengerId));
     }
 }
