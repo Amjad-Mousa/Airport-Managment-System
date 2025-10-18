@@ -110,7 +110,7 @@ namespace Airport_Management_System.Services
                 return false;   
             }
 
-            if (Bookings.Any(b => b?.BookingId == booking.BookingId))
+            if (GetBookingById(booking.Id)!=null)
             {
                 Console.WriteLine("Booking already exists.");   
                 return false;
