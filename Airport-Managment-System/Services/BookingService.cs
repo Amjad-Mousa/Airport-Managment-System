@@ -11,7 +11,7 @@ namespace Airport_Management_System.Services
         {
             this.Bookings = CsvHelperService.ReadFromCsv<Booking?>(csvFilePath) ?? new List<Booking?>();
         }
-        public string GetBookingDetails(int BookingID)
+        public string PrintBookingDetails(int BookingID)
         {
             var booking = GetBookingById(BookingID);
             return booking != null ? booking.ToString() : "Booking not found.";
@@ -124,5 +124,5 @@ namespace Airport_Management_System.Services
         {
             return Bookings.Where(b => b != null).OrderBy(b => b?.TotalPrice).ToList();
         }
-        private Booking? GetBookingById(int bookingId) => Bookings.FirstOrDefault(b => b?.BookingId == bookingId);
+        public Booking? GetBookingById(int bookingId) => Bookings.FirstOrDefault(b => b?.BookingId == bookingId);
     } }
