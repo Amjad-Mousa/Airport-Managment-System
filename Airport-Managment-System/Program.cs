@@ -126,29 +126,88 @@ class Program
         Console.WriteLine(flightService.GetFlightDetails(flightId));
     }
 
-    private static void UpdateFlight(FlightService flightService)
+private static void UpdateFlight(FlightService flightService)
+{
+    Console.Write("Enter Flight ID to update: ");
+    string flightId = Console.ReadLine();
+
+    if (string.IsNullOrWhiteSpace(flightId))
     {
-        Console.Write("Enter Flight ID to update: ");
-        string flightId = Console.ReadLine();
-
-        Console.Write("New Departure Country: ");
-        string departureCountry = Console.ReadLine();
-
-        Console.Write("New Destination Country: ");
-        string destinationCountry = Console.ReadLine();
-
-        // Update other fields similarly...
-
-        Flight updatedFlight = new Flight
-        {
-            Id = flightId,
-            DepartureCountry = departureCountry,
-            DestinationCountry = destinationCountry,
-            // Set other properties...
-        };
-
-        Console.WriteLine(flightService.UpdateFlight(updatedFlight));
+        Console.WriteLine("Flight ID is required.");
+        return;
     }
+
+    Console.Write("New Departure Country (leave blank to keep current): ");
+    string departureCountry = Console.ReadLine();
+
+    Console.Write("New Destination Country (leave blank to keep current): ");
+    string destinationCountry = Console.ReadLine();
+
+    Console.Write("New Departure Date (yyyy-MM-dd HH:mm) or leave blank: ");
+    string departureDateInput = Console.ReadLine();
+    DateTime departureDate = DateTime.TryParse(departureDateInput, out DateTime parsedDepartureDate)
+        ? parsedDepartureDate
+        : default;
+
+    Console.Write("New Arrival Date (yyyy-MM-dd HH:mm) or leave blank: ");
+    string arrivalDateInput = Console.ReadLine();
+    DateTime arrivalDate = DateTime.TryParse(arrivalDateInput, out DateTime parsedArrivalDate)
+        ? parsedArrivalDate
+        : default;
+
+    Console.Write("New Departure Airport (leave blank to keep current): ");
+    string departureAirport = Console.ReadLine();
+
+    Console.Write("New Destination Airport (leave blank to keep current): ");
+    string destinationAirport = Console.ReadLine();
+
+    Console.Write("New Economy Price (leave blank to keep current): ");
+    string economyPriceInput = Console.ReadLine();
+    decimal economyPrice = decimal.TryParse(economyPriceInput, out decimal parsedEconomy)
+        ? parsedEconomy
+        : 0;
+
+    Console.Write("New Business Price (leave blank to keep current): ");
+    string businessPriceInput = Console.ReadLine();
+    decimal businessPrice = decimal.TryParse(businessPriceInput, out decimal parsedBusiness)
+        ? parsedBusiness
+        : 0;
+
+    Console.Write("New First Class Price (leave blank to keep current): ");
+    string firstClassPriceInput = Console.ReadLine();
+    decimal firstClassPrice = decimal.TryParse(firstClassPriceInput, out decimal parsedFirstClass)
+        ? parsedFirstClass
+        : 0;
+
+    Console.Write("New Max Seat Size (leave blank to keep current): ");
+    string maxSeatInput = Console.ReadLine();
+    int maxSeatSize = int.TryParse(maxSeatInput, out int parsedMaxSeats)
+        ? parsedMaxSeats
+        : 0;
+
+    Flight updatedFlight = new Flight
+    {
+        Id = flightId,
+        DepartureCountry = string.IsNullOrWhiteSpace(departureCountry) ? null : departureCountry,
+        DestinationCountry = string.IsNullOrWhiteSpace(destinationCountry) ? null : destinationCountry,
+        DepartureDate = departureDate,
+        ArrivalDate = arrivalDate,
+        DepartureAirport = string.IsNullOrWhiteSpace(departureAirport) ? null : departureAirport,
+        DestinationAirport = string.IsNullOrWhiteSpace(destinationAirport) ? null : destinationAirport,
+        EconomyPrice = economyPrice,
+        BusinessPrice = businessPrice,
+        FirstClassPrice = firstClassPrice,
+        MaxSeatSize = maxSeatSize
+    };
+
+    bool success = flightService.UpdateFlight(updatedFlight);
+
+    if (success)
+        Console.WriteLine("✅ Flight updated successfully.");
+    else
+        Console.WriteLine("❌ Flight update failed.");
+}
+
 
     private static void DeleteFlight(FlightService flightService)
     {
