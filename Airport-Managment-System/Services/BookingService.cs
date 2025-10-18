@@ -49,6 +49,11 @@ namespace Airport_Management_System.Services
 
             if (updatedBooking.BookingDate != default)
             {
+                if (updatedBooking.BookingDate<DateTime.Now.Date)
+                {
+                    Console.WriteLine("Booking date cannot be in the past.");
+                    return false;
+                }
                 booking.BookingDate = updatedBooking.BookingDate;
             }
 
