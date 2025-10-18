@@ -74,12 +74,12 @@ namespace Airport_Management_System.Services
 
         public bool DeleteBooking(int BookingID)
         {
-            var flight = GetBookingById(BookingID);
-            if (flight == null) {
+            var booking = GetBookingById(BookingID);
+            if (booking == null) {
                 Console.WriteLine("Booking not found.");
                 return false; }
 
-            Bookings?.Remove(flight);
+            Bookings?.Remove(booking);
             CsvHelperService.WriteToCsv(csvFilePath, Bookings);
             Console.WriteLine( "Booking canceled successfully!");
             return true;    
