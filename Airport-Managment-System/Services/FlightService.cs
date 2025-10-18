@@ -12,7 +12,7 @@ namespace Airport_Management_System.Services
             this.flights = CsvHelperService.ReadFromCsv<Flight?>(csvFilePath) ?? new List<Flight?>();
         }
 
-        private Flight? GetFlightById(string flightId)
+        public Flight? GetFlightById(string flightId)
         {
             if (string.IsNullOrWhiteSpace(flightId))
             {
@@ -23,7 +23,7 @@ namespace Airport_Management_System.Services
             return flights.FirstOrDefault(f => f?.Id == flightId);
         }
 
-        public string GetFlightDetails(string id)
+        public string PrintFlightDetails(string id)
         {
             var flight = GetFlightById(id);
             return flight != null ? flight.ToString() : "Flight not found.";
