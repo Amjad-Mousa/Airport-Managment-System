@@ -19,7 +19,7 @@ namespace Airport_Management_System.Services
                 passengers.Any(passenger => passenger.Id == passengerId);     
         }
 
-        public Passenger? PrintPassengerDetails(int passengerId)
+        public string? PrintPassengerDetails(int passengerId)
         {
             var passenger = GetPassengerById(passengerId);
             return passenger != null ? passenger
@@ -27,7 +27,7 @@ namespace Airport_Management_System.Services
         }
 
 
-        private Passenger? GetPassengerById(int passengerId)
+        public Passenger? GetPassengerById(int passengerId)
         {
             return passengers.FirstOrDefault(p => p?.Id == passengerId);
         }
