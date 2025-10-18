@@ -15,9 +15,8 @@ namespace Airport_Management_System.Services
 
         public static bool IsPassengerExists(int passengerId)
         {
-            return CsvHelperService
-                .ReadFromCsv<Passenger>(@"../../../Data/Passenger.csv")
-                .Any(passenger => passenger.Id == passengerId);     
+            return  
+                passengers.Any(passenger => passenger.Id == passengerId);     
         }
 
         public string? GetPassengerDetails(int passengerId)
